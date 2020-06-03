@@ -1,0 +1,17 @@
+{
+  "name": "music-library-player-backend",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./app/index.js",
+  "scripts": {
+    "start": "node index.js",
+    "start:watch": "nodemon index.js"
+  },
+  "author": "Harry Merritt",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^4.0.2",
+    "gulp-prettier": "^3.0.0",
+    "nodemon": "^2.0.4"
+  }
+}
