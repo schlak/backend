@@ -17,6 +17,8 @@
     "dependencies": {
         "cors": "^2.8.5",
         "express": "^4.17.1",
-        "lodash": "^4.17.15"
+        "lodash": "^4.17.15",
+        "music-metadata-browser": "^2.0.5",
+        "walkdir": "^0.4.1"
     }
 }
