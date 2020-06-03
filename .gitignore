@@ -1,6 +1,10 @@
 
 node_modules/
 
+*.mp3
+*.flac
+*.ogg
+
 *.log
 *.tar
 *.tar.gz
