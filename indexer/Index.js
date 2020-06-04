@@ -24,14 +24,17 @@ class Index {
         walk.sync(pathToIndex, function (path, stat) {
             // Only scan for audio files
             if (files.isFile(path) && files.isTypeAudio(path)) {
-                let epath = path.split("\\");
-                epath = epath[epath.length - 1];
-                indexNew.push(epath);
+                // let epath = path.split("\\");
+                // epath = epath[epath.length - 1];
+                indexNew.push(path);
             }
         });
 
         // Update actual index with new one
         this.index = [...indexNew];
+
+        // Return updated index
+        return this.index;
     }
 }
 
