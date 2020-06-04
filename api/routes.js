@@ -1,5 +1,5 @@
-const router = require("express").Router();
 const fs = require("fs");
+const router = require("express").Router();
 const chokidar = require("chokidar");
 const { files, index, metadata } = require("../indexer/API");
 
@@ -11,14 +11,9 @@ let musicIndex = index.populate(musicDir);
 
 // Populate metadata
 musicIndex.forEach((track, i) => {
-    metadata.basic(track.path)
-        .then(trackMetadata => {
-            musicIndex[i]["metadata"] = trackMetadata;
-            console.log({
-                id: musicIndex[i]["id"],
-                title: musicIndex[i]["metadata"]["title"]
-            });
-        });
+    metadata.basic(track.path).then((trackMetadata) => {
+        musicIndex[i]["metadata"] = trackMetadata;
+    });
 });
 
 // chokidar.watch(musicDir).on("all", (event, path) => {
@@ -26,12 +21,14 @@ musicIndex.forEach((track, i) => {
 // });
 
 router.get("/tracks", async (req, res, next) => {
-    res.send(musicIndex.map((track) => {
-        return {
-            id: track.id,
-            metadata: track.metadata
-        }
-    }));
+    res.send(
+        musicIndex.map((track) => {
+            return {
+                id: track.id,
+                metadata: track.metadata,
+            };
+        })
+    );
 });
 
 /*
@@ -42,7 +39,7 @@ router.get("/tracks/:id", async (req, res, next) => {
     const track = musicIndex.find((track, array) => track.id === req.params.id);
     res.send({
         id: track.id,
-        metadata: track.metadata
+        metadata: track.metadata,
     });
 });
 

@@ -1,5 +1,6 @@
 "use strict";
 
+const debug = require("debug")("metadata");
 const fs = require("fs");
 const util = require("util");
 const musicMetadata = require("music-metadata-browser");
@@ -19,6 +20,8 @@ class Metadata {
         const metadata = await musicMetadata.parseNodeStream(fileStream);
         fileStream.destroy();
 
+        debug(`get  ${metadata["common"]["title"]}`);
+
         // console.log(util.inspect(metadata, { showHidden: false, depth: null }));
         return metadata;
     }
@@ -31,7 +34,7 @@ class Metadata {
             artist: metadata["common"]["artist"],
             album: metadata["common"]["album"],
             year: metadata["common"]["year"],
-            genres: metadata["common"]["genre"]
+            genres: metadata["common"]["genre"],
         };
     }
 

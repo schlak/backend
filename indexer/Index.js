@@ -1,5 +1,6 @@
 "use strict";
 
+const debug = require("debug")("indexer");
 const crypto = require("crypto");
 const walk = require("walkdir");
 const files = require("./Files");
@@ -18,6 +19,8 @@ class Index {
     }
 
     populate(pathToIndex) {
+        debug(`start  populate: ${pathToIndex}`);
+
         // New temp index
         // doesn't overwrite actual index until fully populated
         const indexNew = [];
@@ -33,13 +36,15 @@ class Index {
 
                 indexNew.push({
                     id: trackId,
-                    path: path
+                    path: path,
                 });
             }
         });
 
         // Update actual index with new one
         this.index = [...indexNew];
+
+        debug(`end    populate: ${pathToIndex}`);
 
         // Return updated index
         return this.index;
