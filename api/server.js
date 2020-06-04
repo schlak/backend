@@ -13,6 +13,12 @@ server.use("/", routes);
 server.get("/", (req, res) => {
     res.send({
         message: "Hello World!",
+        routes: [
+            "/tracks",
+            "/tracks/:id",
+            "/tracks/:id/cover",
+            "/tracks/:id/audio"
+        ]
     });
 });
 
