@@ -20,17 +20,24 @@ class Metadata {
         fileStream.destroy();
 
         // console.log(util.inspect(metadata, { showHidden: false, depth: null }));
+        return metadata;
+    }
 
-        // Return useful metadata
+    async basic(filePath) {
+        const metadata = await this.get(filePath);
         return {
             track: metadata["common"]["track"],
             title: metadata["common"]["title"],
             artist: metadata["common"]["artist"],
             album: metadata["common"]["album"],
             year: metadata["common"]["year"],
-            genre: metadata["common"]["genre"],
-            image: metadata["common"]["picture"][0],
+            genres: metadata["common"]["genre"]
         };
+    }
+
+    async cover(filePath) {
+        const metadata = await this.get(filePath);
+        return metadata["common"]["picture"][0];
     }
 }
 
