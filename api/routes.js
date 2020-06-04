@@ -42,4 +42,16 @@ router.get("/tracks/:id", async (req, res, next) => {
     });
 });
 
+/*
+ * Get album cover for audio file
+ */
+router.get("/tracks/:id/cover", async (req, res, next) => {
+    // Find track within index via id
+    const track = musicIndex.find((track, array) => track.id === req.params.id);
+    const cover = await metadata.cover(track.path);
+
+    res.set("Content-Type", cover.format);
+    res.send(cover.data);
+});
+
 module.exports = router;
