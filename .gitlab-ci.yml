@@ -1,0 +1,12 @@
+build:
+  image: docker:19.03.1
+  stage: build
+
+  services:
+    - name: docker:19.03.1-dind
+      command: ["--experimental"]
+
+  script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker build -t $CI_REGISTRY/music-library-player/backend:latest .
+    - docker push $CI_REGISTRY/music-library-player/backend:latest
