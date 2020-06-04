@@ -21,6 +21,10 @@ musicIndex.forEach((track, i) => {
         });
 });
 
+// chokidar.watch(musicDir).on("all", (event, path) => {
+//     // console.log(event, path);
+// });
+
 router.get("/tracks", async (req, res, next) => {
     res.send(musicIndex.map((track) => {
         return {
@@ -52,6 +56,17 @@ router.get("/tracks/:id/cover", async (req, res, next) => {
 
     res.set("Content-Type", cover.format);
     res.send(cover.data);
+});
+
+/*
+ * Stream audio file
+ */
+router.get("/tracks/:id/audio", async (req, res, next) => {
+    // Find track within index via id
+    const track = musicIndex.find((track, array) => track.id === req.params.id);
+
+    res.set("Content-Type", "audio/flac");
+    fs.createReadStream(track.path).pipe(res);
 });
 
 module.exports = router;
