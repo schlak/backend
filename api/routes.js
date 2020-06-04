@@ -30,4 +30,16 @@ router.get("/tracks", async (req, res, next) => {
     }));
 });
 
+/*
+ * Get individual track metadata
+ */
+router.get("/tracks/:id", async (req, res, next) => {
+    // Find track within index via id
+    const track = musicIndex.find((track, array) => track.id === req.params.id);
+    res.send({
+        id: track.id,
+        metadata: track.metadata
+    });
+});
+
 module.exports = router;
