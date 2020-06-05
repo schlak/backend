@@ -20,21 +20,46 @@ class Metadata {
         const metadata = await musicMetadata.parseNodeStream(fileStream);
         fileStream.destroy();
 
-        debug(`get  ${metadata["common"]["title"]}`);
+        debug(`get  ${this.getTag(metadata, "title")}`);
 
         // console.log(util.inspect(metadata, { showHidden: false, depth: null }));
         return metadata;
     }
 
+    getTag(metadata, tag, fallback = "~") {
+        switch(tag) {
+            case "track":
+                // Destructure track out of object
+                // Fallback to '1' if no value found
+                let track = metadata["common"][tag] || {"no": 1};
+                track = track["no"] || 1;
+                return track;
+
+            case "genre":
+                // Destructure track out of array
+                const genre = metadata["common"][tag] || [fallback];
+                if (genre.length === 0) genre.push(fallback);
+                return genre[0];
+
+            case "duration":
+                return metadata["format"][tag] || fallback;
+
+            default:
+                return metadata["common"][tag] || fallback;
+        }
+    }
+
     async basic(filePath) {
         const metadata = await this.get(filePath);
         return {
-            track: metadata["common"]["track"],
-            title: metadata["common"]["title"],
-            artist: metadata["common"]["artist"],
-            album: metadata["common"]["album"],
-            year: metadata["common"]["year"],
-            genres: metadata["common"]["genre"],
+            track: this.getTag(metadata, "track"),
+            title: this.getTag(metadata, "title"),
+            artist: this.getTag(metadata, "artist"),
+            album_artist: this.getTag(metadata, "albumartist"),
+            album: this.getTag(metadata, "album"),
+            year: this.getTag(metadata, "year"),
+            genre: this.getTag(metadata, "genre"),
+            duration: this.getTag(metadata, "duration", 0),
         };
     }
 
