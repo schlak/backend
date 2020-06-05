@@ -1,6 +1,6 @@
 const fs = require("fs");
 const router = require("express").Router();
-const chokidar = require("chokidar");
+// const chokidar = require("chokidar");
 const { findIndex } = require("lodash");
 const { files, index, metadata } = require("../indexer/API");
 
@@ -17,11 +17,10 @@ musicIndex.forEach((track, i) => {
     });
 });
 
-// chokidar.watch(musicDir).on("all", (event, path) => {
-//     // console.log(event, path);
-// });
-
-router.get("/tracks", async (req, res, next) => {
+/*
+ * Returns all tracks
+ */
+router.get("/tracks", isIndexComplete(), async (req, res, next) => {
     res.send(
         musicIndex.map((track) => {
             return {
@@ -33,9 +32,9 @@ router.get("/tracks", async (req, res, next) => {
 });
 
 /*
- * Get individual track metadata
+ * Returns individual track metadata
  */
-router.get("/tracks/:id", validateTrackId(), async (req, res, next) => {
+router.get("/tracks/:id", isIndexComplete(), validateTrackId(), async (req, res, next) => {
     // Find track within index via id
     const track = musicIndex.find((track, array) => track.id === req.params.id);
     res.send({
@@ -45,7 +44,7 @@ router.get("/tracks/:id", validateTrackId(), async (req, res, next) => {
 });
 
 /*
- * Get album cover for audio file
+ * Returns album cover for audio file
  */
 router.get("/tracks/:id/cover", validateTrackId(), async (req, res, next) => {
     // Find track within index via id
@@ -87,6 +86,20 @@ function validateTrackId() {
                 error: "invalid track-id",
                 msg: "try getting all tracks: /tracks"
             });
+        }
+    };
+}
+
+/*
+ * Check if index is complete: prevents incomplete data being sent
+ * stop request if false
+ */
+function isIndexComplete() {
+    return (req, res, next) => {
+        if (musicIndex[musicIndex.length - 1].metadata) {
+            next();
+        } else {
+            res.status(500).json([]);
         }
     };
 }
