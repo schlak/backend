@@ -6,7 +6,13 @@ const prettier = require("gulp-prettier");
  */
 gulp.task("default", () => {
     return gulp
-        .src(["./api/**/*.js", "./index.js", "./package.json", "./gulpfile.js"])
+        .src([
+            "./api/**/*.js",
+            "./indexer/**/*.js",
+            "./index.js",
+            "./package.json",
+            "./gulpfile.js",
+        ])
         .pipe(prettier({ editorconfig: true }))
         .pipe(gulp.dest((file) => file.base));
 });
