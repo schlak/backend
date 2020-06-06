@@ -19,7 +19,8 @@ server.get("/", (req, res) => {
             "/tracks",
             "/tracks/:id",
             "/tracks/:id/cover",
-            "/tracks/:id/audio"
+            "/tracks/:id/audio",
+            "/albums"
         ]
     });
 });

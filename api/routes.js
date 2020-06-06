@@ -56,6 +56,51 @@ router.get("/tracks/:id/cover", validateTrackId(), async (req, res, next) => {
 });
 
 /*
+ * Returns all tracks sorted into albums
+ */
+router.get("/albums", isIndexComplete(), async (req, res, next) => {
+    const albums = [];
+
+    // Loop each track
+    // populate albums array
+    musicIndex.forEach((track, i) => {
+        let found = false;
+
+        // Loop albums array
+        // Search for matching album data
+        albums.forEach((album, i) => {
+            if (track.metadata.album === album.album &&
+                track.metadata.album_artist === album.album_artist) {
+                    albums[i].tracks.push({
+                        id: track.id,
+                        metadata: track.metadata
+                    });
+
+                    found = true;
+            }
+        });
+
+        // If nothing found
+        // create new album
+        if (!found) {
+            return albums.push({
+                album: track.metadata.album,
+                album_artist: track.metadata.album_artist,
+                year: track.metadata.year,
+                tracks: [
+                    {
+                        id: track.id,
+                        metadata: track.metadata
+                    }
+                ]
+            });
+        }
+    });
+
+    res.send(albums);
+});
+
+/*
  * Stream audio file
  */
 router.get("/tracks/:id/audio", validateTrackId(), async (req, res, next) => {
