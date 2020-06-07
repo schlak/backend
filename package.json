@@ -5,7 +5,7 @@
     "main": "index.js",
     "scripts": {
         "start": "node bin/index.js",
-        "start:watch": "cross-env DEBUG=indexer,metadata nodemon bin/index.js"
+        "start:watch": "cross-env DEBUG=indexer,metadata,socket.io nodemon bin/index.js"
     },
     "author": "Harry Merritt",
     "license": "ISC",
@@ -14,7 +14,8 @@
         "debug": "^4.1.1",
         "gulp": "^4.0.2",
         "gulp-prettier": "^3.0.0",
-        "nodemon": "^2.0.4"
+        "nodemon": "^2.0.4",
+        "socket.io-client": "^2.3.0"
     },
     "dependencies": {
         "chokidar": "^3.4.0",
