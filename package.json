@@ -1,6 +1,6 @@
 {
     "name": "music-library-player-backend",
-    "version": "1.0.4",
+    "version": "1.0.5",
     "description": "",
     "main": "index.js",
     "scripts": {
@@ -22,6 +22,7 @@
         "express": "^4.17.1",
         "lodash": "^4.17.15",
         "music-metadata-browser": "^2.0.5",
+        "socket.io": "^2.3.0",
         "walkdir": "^0.4.1"
     }
 }

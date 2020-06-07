@@ -9,6 +9,7 @@ gulp.task("default", () => {
         .src([
             "./api/**/*.js",
             "./indexer/**/*.js",
+            "./socket/**/*.js",
             "./index.js",
             "./package.json",
             "./gulpfile.js",
