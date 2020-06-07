@@ -1,11 +1,11 @@
 {
     "name": "music-library-player-backend",
-    "version": "1.0.3",
+    "version": "1.0.4",
     "description": "",
     "main": "index.js",
     "scripts": {
-        "start": "node index.js",
-        "start:watch": "cross-env DEBUG=indexer,metadata nodemon index.js"
+        "start": "node bin/index.js",
+        "start:watch": "cross-env DEBUG=indexer,metadata nodemon bin/index.js"
     },
     "author": "Harry Merritt",
     "license": "ISC",
