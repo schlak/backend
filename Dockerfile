@@ -13,4 +13,4 @@ ENV PORT_SOCKET 8000
 EXPOSE 80
 EXPOSE 8000
 
-CMD ["pm2", "start", "index.js", "--no-daemon"]
+CMD ["pm2", "start", "bin/index.js", "--no-daemon"]
