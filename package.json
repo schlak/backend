@@ -1,6 +1,6 @@
 {
     "name": "music-library-player-backend",
-    "version": "1.0.6",
+    "version": "1.0.7",
     "description": "",
     "main": "index.js",
     "scripts": {
@@ -20,6 +20,7 @@
     "dependencies": {
         "chokidar": "^3.4.0",
         "cors": "^2.8.5",
+        "cron": "^1.8.2",
         "express": "^4.17.1",
         "lodash": "^4.17.15",
         "music-metadata-browser": "^2.0.5",
