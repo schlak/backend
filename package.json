@@ -1,24 +1,13 @@
 {
     "name": "music-library-player-backend",
-    "version": "1.0.8",
+    "version": "1.0.9",
     "description": "",
     "main": "index.js",
     "scripts": {
         "start": "node bin/index.js",
         "start:watch": "cross-env DEBUG=indexer,metadata,socket.io nodemon bin/index.js"
     },
-    "author": "Harry Merritt",
-    "license": "ISC",
-    "devDependencies": {
-        "cross-env": "^7.0.2",
-        "debug": "^4.1.1",
-        "gulp": "^4.0.2",
-        "gulp-prettier": "^3.0.0",
-        "nodemon": "^2.0.4",
-        "socket.io-client": "^2.3.0"
-    },
     "dependencies": {
-        "chokidar": "^3.4.0",
         "cors": "^2.8.5",
         "cron": "^1.8.2",
         "express": "^4.17.1",
@@ -28,5 +17,15 @@
         "sharp": "^0.25.3",
         "socket.io": "^2.3.0",
         "walkdir": "^0.4.1"
-    }
+    },
+    "devDependencies": {
+        "cross-env": "^7.0.2",
+        "debug": "^4.1.1",
+        "gulp": "^4.0.2",
+        "gulp-prettier": "^3.0.0",
+        "nodemon": "^2.0.4",
+        "socket.io-client": "^2.3.0"
+    },
+    "author": "Harry Merritt",
+    "license": "ISC"
 }
