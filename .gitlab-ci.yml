@@ -2,6 +2,10 @@ release:
   image: docker:19.03.1
   stage: build
 
+  only:
+    - master
+    - tags
+
   variables:
     DOCKER_TLS_CERTDIR: "/certs"
     DOCKER_BUILDKIT: 1
@@ -12,7 +16,7 @@ release:
   services:
     - name: docker:19.03.1-dind
       command: ["--experimental"]
-  
+
   before_script:
     - mkdir -p $HOME/.docker/cli-plugins/
     - wget -O $HOME/.docker/cli-plugins/docker-buildx $BUILDX_URL
