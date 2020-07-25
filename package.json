@@ -1,11 +1,11 @@
 {
     "name": "music-library-player-backend",
-    "version": "1.1.0",
+    "version": "1.2.0",
     "description": "",
     "main": "index.js",
     "scripts": {
         "start": "node bin/index.js",
-        "start:watch": "cross-env DEBUG=indexer,metadata,socket.io nodemon bin/index.js"
+        "start:watch": "cross-env DEBUG=indexer,socket.io,cache nodemon bin/index.js"
     },
     "dependencies": {
         "cors": "^2.8.5",
