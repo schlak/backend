@@ -1,36 +1,23 @@
 release:
   image: docker:19.03.1
   stage: build
-
+  
   only:
     - master
     - tags
-
-  variables:
-    DOCKER_TLS_CERTDIR: "/certs"
-    DOCKER_BUILDKIT: 1
-    DOCKER_CLI_EXPERIMENTAL: enabled
-    BUILDX_PLATFORM: linux/amd64,linux/arm64
-    BUILDX_URL: https://github.com/docker/buildx/releases/download/v0.3.1/buildx-v0.3.1.linux-amd64
 
   services:
     - name: docker:19.03.1-dind
       command: ["--experimental"]
 
   before_script:
-    - mkdir -p $HOME/.docker/cli-plugins/
-    - wget -O $HOME/.docker/cli-plugins/docker-buildx $BUILDX_URL
-    - chmod a+x $HOME/.docker/cli-plugins/docker-buildx
-    - docker run --rm --privileged multiarch/qemu-user-static --reset -p yes
-    - docker context create context
-    - docker buildx create context --use --driver docker-container --name builder --platform=${BUILDX_PLATFORM}
-    - docker buildx inspect --bootstrap builder
-
-  script:
     - apk update && apk add bash && apk add git
     - git clone --recurse-submodules https://gitlab.merritt.es/music-library-player/release.git
     - cd release
     - git submodule update --remote backend
     - git submodule update --remote client
-    - docker login -u $DOCKER_USER -p $DOCKER_PASS
-    - docker buildx build --platform $BUILDX_PLATFORM -t hmerritt/music-library-player:latest --push "."
+
+  script:
+    - docker login -u hmerritt -p $DOCKER_PASS
+    - docker build -t hmerritt/music-library-player:latest .
+    - docker push hmerritt/music-library-player:latest
