@@ -8,6 +8,7 @@
         "start:watch": "cross-env DEBUG=indexer,socket.io,cache nodemon bin/index.js"
     },
     "dependencies": {
+        "@bug-catch/server": "^1.0.1",
         "cors": "^2.8.5",
         "cron": "^1.8.2",
         "express": "^4.17.1",
