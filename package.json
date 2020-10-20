@@ -5,6 +5,7 @@
     "main": "index.js",
     "scripts": {
         "start": "node bin/index.js",
+        "start:dev": "cross-env-file node bin/index.js",
         "start:watch": "cross-env DEBUG=indexer,socket.io,cache nodemon bin/index.js"
     },
     "dependencies": {
@@ -22,6 +23,7 @@
     },
     "devDependencies": {
         "cross-env": "^7.0.2",
+        "cross-env-file": "^1.0.0",
         "debug": "^4.1.1",
         "gulp": "^4.0.2",
         "gulp-prettier": "^3.0.0",
