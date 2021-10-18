@@ -1,23 +1,25 @@
 release:
-  image: docker:19.03.1
-  stage: build
-  
-  only:
-    - master
-    - tags
+    image: docker:19.03.1
+    stage: build
 
-  services:
-    - name: docker:19.03.1-dind
-      command: ["--experimental"]
+    only:
+        - tags
 
-  before_script:
-    - apk update && apk add bash && apk add git
-    - git clone --recurse-submodules https://gitlab.merritt.es/music-library-player/release.git
-    - cd release
-    - git submodule update --remote backend
-    - git submodule update --remote client
+    services:
+        - name: docker:19.03.1-dind
+          command: ["--experimental"]
 
-  script:
-    - docker login -u hmerritt -p $DOCKER_PASS
-    - docker build -t hmerritt/music-library-player:latest .
-    - docker push hmerritt/music-library-player:latest
+    before_script:
+        - apk update && apk add bash && apk add git
+        - git clone --recurse-submodules https://gitlab.com/music-library/release.git
+        - cd release
+        - git submodule update --remote backend
+        - git submodule update --remote client
+
+    script:
+        - docker login -u "$DOCKER_USER" -p "$DOCKER_TOKEN"
+        - docker build -t hmerritt/music-library-player:$CI_COMMIT_TAG -t hmerritt/music-library-player:latest .
+        - docker push hmerritt/music-library-player
+
+    after_script:
+        - docker logout
